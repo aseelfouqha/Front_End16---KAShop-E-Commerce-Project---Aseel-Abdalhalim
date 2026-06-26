@@ -1,4 +1,5 @@
 import React from 'react'
+import { useState } from "react";
 import { Box } from "@mui/material";
 import Typography from '@mui/material/Typography'
 import TextField from "@mui/material/TextField";
@@ -40,28 +41,29 @@ export default function Register() {
         {serverErrors?.length > 0 ? serverErrors.map((error)=> 
         <Typography color='error'>(error)</Typography>
       ) :''}
-        <Box onSubmit={handleSubmit(RegisterForm)} component="form" sx={{marginTop:2, display:'flex', flexDriection:'Column', gap:2}}>
+        <Box onSubmit={handleSubmit(RegisterForm)} component="form" sx={{marginTop:2, display:'flex', flexDirection:'column', gap:2}}>
           <TextField fullWidth {...register("userName")} label="userName" variant="outlined"
             error={errors.userName}
-            helperText={errors.userName.message}
+            helperText={errors.userName?.message}
           />
           <TextField fullWidth {...register("fullName")} label="fullName" variant="outlined"
             error={errors.fullName}
-            helperText={errors.fullName.message}
+            helperText={errors.fullName?.message}
           />
             
           <TextField fullWidth {...register("email")} label="email" variant="outlined"
             error={errors.email}
-            helperText={errors.email.message}
+            helperText={errors.email?.message}
           />
           <TextField fullWidth {...register("phoneNumber")} label="phoneNumber" variant="outlined"
             error={errors.phoneNumber}
-            helperText={errors.phoneNumber.message}
+            helperText={errors.phoneNumber?.message}
           />
           <TextField fullWidth {...register("password")} label="password" variant="outlined"
             error={errors.password}
-            helperText={errors.password.message}
+            helperText={errors.password?.message}
           />
+
           <Button variant="contained" type="sumbit" disabled={isSubmitting}>
             {isSubmitting? <CircularProgress/> :'register'}
           </Button>
