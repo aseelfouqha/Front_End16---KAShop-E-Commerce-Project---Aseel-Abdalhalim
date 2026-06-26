@@ -1,5 +1,5 @@
 import React from 'react'
-import { useQuery } from '@tanstack/react-query';
+import { useQuery  } from '@tanstack/react-query';
 import axios from 'axios'
 import axiosInstance from '../API/axiosInstance';
 
@@ -12,7 +12,7 @@ export default function useCategories() {
     return response.data;
   }
 
-    const {data, isLoading, isError, error} = useQuery({
+    const query = useQuery({
       queryKey : ['categories'],
       queryFn : getCategories,
       staleTime: 1000 * 60 * 5
