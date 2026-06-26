@@ -64,7 +64,6 @@ export default function Register() {
           />
           <Button variant="contained" type="sumbit" disabled={isSubmitting}>
             {isSubmitting? <CircularProgress/> :'register'}
-            Register
           </Button>
         </Box>
     </Box>
