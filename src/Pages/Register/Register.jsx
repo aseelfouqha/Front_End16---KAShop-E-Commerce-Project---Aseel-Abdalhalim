@@ -7,13 +7,17 @@ import Button from '@mui/material/Button';
 import axios from 'axios'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { registerSchema } from '../../Validations/RegisterSchema';
+import { CircularProgress } from '@mui/material';
 
 
 
 export default function Register() {
 
+  const [serverErrors, setServerErrors] = useState([]);
 
-  const {register, handleSubmit, formState:{errors}} = useForm(
+
+
+  const {register, handleSubmit, formState:{errors, isSubmitting}} = useForm(
     {
       resolver : yupResolver(registerSchema)
     }
@@ -24,7 +28,7 @@ export default function Register() {
       const response = await axios.post(`${import.meta.env.VITE_BURL}/auth/Account/Register`,data);
       console.log(response);
     }catch(err){
-      console.log(err);
+      setServerErrors(err.response.data.errors)
     }
   }
   return (
@@ -32,6 +36,10 @@ export default function Register() {
         <Typography component="h1" variant="h2">
           Register
         </Typography>
+        {console.log(serverErrors)}
+        {serverErrors?.length > 0 ? serverErrors.map((error)=> 
+        <Typography color='error'>(error)</Typography>
+      ) :''}
         <Box onSubmit={handleSubmit(RegisterForm)} component="form" sx={{marginTop:2, display:'flex', flexDriection:'Column', gap:2}}>
           <TextField fullWidth {...register("userName")} label="userName" variant="outlined"
             error={errors.userName}
@@ -54,7 +62,8 @@ export default function Register() {
             error={errors.password}
             helperText={errors.password.message}
           />
-          <Button variant="contained" type="sumbit">
+          <Button variant="contained" type="sumbit" disabled={isSubmitting}>
+            {isSubmitting? <CircularProgress/> :'register'}
             Register
           </Button>
         </Box>
