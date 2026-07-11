@@ -1,10 +1,8 @@
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import axiosAuthInstance from '../../API/axiosAuthInstance';
-import { UserContext } from '../../Context/UserContext';
 
 export default function Cart() {
-    const x = UserContext(UserContext);
 
     const token = localStorage.getItem('accessToken')
 
@@ -17,6 +15,6 @@ export default function Cart() {
       getItems();
     }, [])
   return (
-    <div>Cart - {x.userName}</div>
+    <div>Cart </div>
   )
 }
