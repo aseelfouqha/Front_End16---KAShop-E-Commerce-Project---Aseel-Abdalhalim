@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 
-export default function Navbar() {
+export default function Navbar({userName}) {
   return (
     
         <nav bg="primary" data-bs-theme="dark">

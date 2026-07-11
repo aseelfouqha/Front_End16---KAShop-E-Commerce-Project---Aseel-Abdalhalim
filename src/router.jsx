@@ -5,6 +5,7 @@ import ProductGallery from "./Pages/Products/ProductGallery";
 import Cart from "./Pages/CartAndCheckout/Cart";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
+import UserContextProvider from "./Context/UserContext";
 
 const router = createBrowserRouter([
   {
@@ -23,12 +24,19 @@ const router = createBrowserRouter([
       },
       {
         path: "cart",
-        element: <Cart />
+        element: 
+          <UserContextProvider>
+              <Cart />
+          </UserContextProvider>
 
       },
       {
         path: "login",
-        element: <Login />
+        element:          
+         <UserContextProvider>
+              <Login />
+          </UserContextProvider>
+
       },
       {
         path: "register",

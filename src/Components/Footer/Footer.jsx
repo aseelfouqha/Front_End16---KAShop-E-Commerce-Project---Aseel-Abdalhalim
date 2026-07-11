@@ -1,7 +1,14 @@
 import React from 'react'
+import Item from '../Item'
 
 export default function Footer() {
+  
   return (
-    <div>Footer</div>
+    <>
+      <h2>Footer</h2>
+    
+      <Item />
+      
+    </>
   )
 }
