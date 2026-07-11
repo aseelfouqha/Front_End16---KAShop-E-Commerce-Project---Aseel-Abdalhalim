@@ -6,7 +6,9 @@ import { useUserStore } from '../../Store/useUserStore';
 
 export default function Cart() {
 
-    const x  = useCounterStore( (state)=> state.counter);
+    const counter  = useCounterStore( (state)=> state.counter);
+    const increment  = useCounterStore( (state)=> state.increment);
+
     const name = useUserStore ( (state) => state.userName);
 
     const token = localStorage.getItem('accessToken')
@@ -20,6 +22,14 @@ export default function Cart() {
       getItems();
     }, [])
   return (
-    <div>Cart  - {name} </div>
+    <>
+    <div>Cart  - {name} - {counter} </div>
+    <button onClick={increment}> + </button>
+    
+    
+    
+    </>
+
+
   )
 }
