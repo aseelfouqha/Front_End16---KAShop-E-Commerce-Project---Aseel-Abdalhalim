@@ -1,8 +1,13 @@
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import axiosAuthInstance from '../../API/axiosAuthInstance';
+import { useCounterStore } from '../../Store/useCounterStore';
+import { useUserStore } from '../../Store/useUserStore';
 
 export default function Cart() {
+
+    const x  = useCounterStore( (state)=> state.counter);
+    const name = useUserStore ( (state) => state.userName);
 
     const token = localStorage.getItem('accessToken')
 
@@ -15,6 +20,6 @@ export default function Cart() {
       getItems();
     }, [])
   return (
-    <div>Cart </div>
+    <div>Cart  - {name} </div>
   )
 }

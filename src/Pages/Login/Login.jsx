@@ -9,12 +9,14 @@ import axios from 'axios'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '../../Validations/LoginSchema';
 import { CircularProgress } from '@mui/material';
+import { useUserStore } from '../../Store/useUserStore';
 
 
 
 export default function Login() {
 
-
+  const name = useUserStore ( (state) => state.userName);
+  
   const [serverErrors, setServerErrors] = useState([]);
 
 
@@ -37,7 +39,7 @@ export default function Login() {
   return (
     <Box component="section" className="LoginPage"> 
         <Typography component="h1" variant="h2">
-          Login 
+          Login {name}
         </Typography>
         {console.log(serverErrors)}
         {serverErrors?.length > 0 ? serverErrors.map((error)=> 
