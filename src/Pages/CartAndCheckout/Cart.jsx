@@ -1,17 +1,13 @@
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import axiosAuthInstance from '../../API/axiosAuthInstance';
-import { useCounterStore } from '../../Store/useCounterStore';
-import { useUserStore } from '../../Store/useUserStore';
+import { useAuthStore } from '../../Store/useAuthStore';
 
 export default function Cart() {
 
-    const counter  = useCounterStore( (state)=> state.counter);
-    const increment  = useCounterStore( (state)=> state.increment);
+    const token = useAuthStore ( (state)=> state.token);
 
-    const name = useUserStore ( (state) => state.userName);
-
-    const token = localStorage.getItem('accessToken')
+    console.log(token);
 
     const getItems = async ()=>{
       const response = await axiosAuthInstance.get(`${import.meta.env.VITE_BURL}/Carts`);
@@ -23,8 +19,7 @@ export default function Cart() {
     }, [])
   return (
     <>
-    <div>Cart  - {name} - {counter} </div>
-    <button onClick={increment}> + </button>
+    <div>Cart   </div>
     
     
     
