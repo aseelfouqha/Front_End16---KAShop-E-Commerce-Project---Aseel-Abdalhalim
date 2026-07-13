@@ -1,10 +1,21 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
-import { useCounterStore } from '../../Store/useCounterStore';
-import { useUserStore } from '../../Store/useUserStore';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuthStore } from '../../Store/useAuthStore';
 
 
 export default function Navbar({userName}) {
+
+  const navigate = useNavigate();
+
+  const token = useAuthStore( (state)=>state.token);
+  const logout = useAuthStore( (state)=>state.logout);
+
+  const handleLogout = ()=>{
+    logout();
+    navigate('/login')
+
+  }
+
 
   
   return (
@@ -12,9 +23,9 @@ export default function Navbar({userName}) {
         <nav bg="primary" data-bs-theme="dark">
           <Link to="/">Home</Link>
           <Link to="/products">ProductGallery</Link>
-          <Link to="/cart">Cart</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/register">Register</Link>
+        
+          {token? <><Link to="/cart">Cart</Link> <Link to="/login" component ="button" onClick={logout}>logout</Link></> : <> <Link to="/login">Login</Link> <Link to="/register">Register</Link></>
+}
         </nav>
 
     

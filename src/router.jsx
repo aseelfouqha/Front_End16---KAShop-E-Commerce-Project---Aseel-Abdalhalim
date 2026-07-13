@@ -6,6 +6,7 @@ import Cart from "./Pages/CartAndCheckout/Cart";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import ProductDetail from "./Pages/Products/ProductDetail";
+import ProudectedRouter from "./PoudectedRouter";
 
 const router = createBrowserRouter([
   {
@@ -28,7 +29,10 @@ const router = createBrowserRouter([
       },
       {
         path: "cart",
-        element:<Cart />
+        element:
+          <ProudectedRouter>
+            <Cart />
+          </ProudectedRouter>
     
 
       },
