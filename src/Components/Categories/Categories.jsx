@@ -18,7 +18,7 @@ export default function Categories() {
   return (
 
     <div>
-      {data.response.data.map((category) => <Box key={category.id}> <Typography>{category.name}</Typography></Box>)}
+      {data?.response?.data?.map((category) => <Box key={category.id}> <Typography>{category.name}</Typography></Box>)}
     </div>
     
   )
