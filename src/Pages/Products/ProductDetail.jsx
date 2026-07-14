@@ -11,16 +11,25 @@ export default function ProductDetail() {
   const {mutate:addToCart} = useAddToCart();
 
   const {data, isError, isLoading, error} = useProduct(id);
+
+
   if(isLoading) return <CircularProgress />
 
   console.log(data);
+
+  //since getting the data is erroring we use function to handle it in order to minimize the error
+  const handleAddToCart = ()=>{
+    addToCart({ProductId:data.response.id,Count:1})
+    console.log("in handle cart")
+  }
+
 
   return (
     <Box>
       <Typography> {data.response.name} </Typography>
       <Typography> {data.response.description} </Typography>
 
-      <Button onClick={()=>{addToCart({porductId:data.response.id,count:1})}}>Add to Cart</Button>
+      <Button onClick={handleAddToCart}>Add to Cart</Button>
 
 
     </Box>

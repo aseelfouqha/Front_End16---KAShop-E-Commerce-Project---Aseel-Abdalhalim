@@ -10,10 +10,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { loginSchema } from '../../Validations/LoginSchema';
 import { CircularProgress } from '@mui/material';
 import { useUserStore } from '../../Store/useUserStore';
-
+import { useAuthStore } from '../../Store/useAuthStore';
 
 
 export default function Login() {
+
+  const setToken = useAuthStore( (state)=> state.setToken);
 
   const name = useUserStore ( (state) => state.userName);
   
@@ -31,8 +33,9 @@ export default function Login() {
     try{
       const response = await axios.post(`${import.meta.env.VITE_BURL}/auth/Account/Login`,data);
       setToken(response.data.accessToken);
+      // console.log(response.data.accessToken);
     }catch(err){
-      setServerErrors(err.response.data.errors)
+      setServerErrors(err?.response?.data?.errors)
     }
   }
   return (

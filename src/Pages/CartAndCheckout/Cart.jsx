@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import axiosAuthInstance from '../../API/axiosAuthInstance';
 import { useAuthStore } from '../../Store/useAuthStore';
 import useCart from '../../hooks/useCart';
-import { Box, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, Typography } from '@mui/material';
+import { Box, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, Typography, TableRow } from '@mui/material';
 
 export default function Cart() {
 
@@ -14,7 +14,7 @@ export default function Cart() {
 
     if(isLoading) return <CircularProgress />
     if(isError) return <Typography>Error.... {error}</Typography>
-
+    // console.log(data);
   return (
     <Box component="section">
       <Typography variant='h1'>Cart</Typography>
@@ -30,14 +30,15 @@ export default function Cart() {
           </TableHead>
 
           <TableBody>
-            {data.items.map((item)=>{
-              <TableRow>
-                <TableCell key={item.id}>{item.productname}</TableCell>
-                <TableCell>{item.price}$</TableCell>
-                <TableCell>{item.count}</TableCell>
-                <TableCell>{item.totalprice}$</TableCell>
-              </TableRow>
-
+            {data?.items?.map((item)=>{ 
+              return(               
+                <TableRow key={item.id}>
+                  <TableCell>{item.productName}</TableCell>
+                  <TableCell>{item.price}$</TableCell>
+                  <TableCell>{item.count}</TableCell>
+                  <TableCell>{item.totalPrice}$</TableCell>
+                </TableRow>
+              )
             })}
           </TableBody>
         </Table>
