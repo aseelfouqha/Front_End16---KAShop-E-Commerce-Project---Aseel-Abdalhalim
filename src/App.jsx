@@ -5,7 +5,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import './i18n'
 import { useTranslation } from 'react-i18next'
-
 export default function App(){
 
   const{i18n} = useTranslation();
