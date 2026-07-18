@@ -17,7 +17,9 @@ export default function useAddToCart() {
         });
         },
       onSuccess:()=>{
-        queryClient.invalidateQueries(['carts']);
+        queryClient.invalidateQueries({
+          queryKey: ['cart']
+        });
       }
     });
   
