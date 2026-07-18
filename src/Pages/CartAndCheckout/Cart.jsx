@@ -8,6 +8,8 @@ import useRemoveFromCart from '../../hooks/useRemoveFromCart';
 import useUpdateCartItem from '../../hooks/useUpdateCartItem';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+
 
 export default function Cart() {
 
@@ -61,8 +63,9 @@ export default function Cart() {
                   <TableCell>{item.totalPrice}$</TableCell>
                   <TableBody><Button
                     color='error'
+                    startIcon={<DeleteIcon />}
                     disabled={isPending}
-                    onClick={()=>removeItem(item.productId)}>Remove</Button></TableBody>
+                    onClick={()=>removeItem(item.productId)}></Button></TableBody>
                 </TableRow>
               )
             })}

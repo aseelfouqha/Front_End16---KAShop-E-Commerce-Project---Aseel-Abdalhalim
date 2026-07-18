@@ -17,6 +17,7 @@ i18n
           "Cart": "Cart",
           "Categories": "Categories",
           "Products": "Products",
+          "Add to Cart":"Add to Cart"
 
         }
       },
@@ -28,10 +29,11 @@ i18n
           "Cart": "سلة التسوق",
           "Categories": "التصنيفات",
           "Products": "المنتجات",
+          "Add to Cart":"أضف إلى السلة"
 
         }
     },
-    lng: "en", // if you're using a language detector, do not define the lng option
+    lng: "ar", // if you're using a language detector, do not define the lng option
     fallbackLng: "en",
 
     }
