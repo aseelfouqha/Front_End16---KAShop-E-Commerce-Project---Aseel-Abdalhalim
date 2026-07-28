@@ -9,6 +9,7 @@ import useUpdateCartItem from '../../hooks/useUpdateCartItem';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import useClearCart from '../../hooks/useClearCart';
 
 
 export default function Cart() {
@@ -17,6 +18,7 @@ export default function Cart() {
   const {data,isLoading,isError,error} = useCart()
   const {mutate:removeItem, isPending} = useRemoveFromCart();
   const {mutate:updateItem, isPending:updateItemPending} = useUpdateCartItem();
+  const {mutate:clearCart, isPending:clearCartPending} = useClearCart();
 
     const token = useAuthStore ( (state)=> state.token);
 
@@ -34,7 +36,23 @@ export default function Cart() {
     }
   return (
     <Box component="section">
-      <Typography variant='h1'>Cart</Typography>
+      <Box sx={{
+        display:"flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        mb: 2,
+      }}
+      >
+        <Typography variant='h1'>Cart</Typography>
+        <Button 
+        color='error'
+        variant='outlined'
+        startIcon={<DeleteIcon/>}
+        disabled={clearCartPending || data?.items?.length === 0}
+        onClick={()=>clearCart()}>
+          {clearCartPending? "Clearing...":"clear Basket"}</Button>
+      </Box>
+
       <TableContainer>
         <Table>
           <TableHead>
