@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { resetPasswordEmailSchema } from '../../Validations/ResetPasswordEmailSchema';
 import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
+import axios from 'axios';
 
 export default function ForgotPassword() {
   
@@ -23,11 +24,12 @@ export default function ForgotPassword() {
         `${import.meta.env.VITE_BURL}/auth/Account/SendCode`,
         data,
       );
-      // console.log("Status:", response.status);
+      console.log("Status:", response.status);
 
-      // console.log("The verification code was sent to your email.");
+      console.log("The verification code was sent to your email.");
 
     } catch (err){
+      console.log("full error:", err);
       setServerErrors(err?.response?.data?.errors);
     }
   };
