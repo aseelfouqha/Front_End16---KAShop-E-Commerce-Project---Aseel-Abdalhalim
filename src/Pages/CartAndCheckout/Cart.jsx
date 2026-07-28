@@ -31,7 +31,12 @@ export default function Cart() {
         updateItem({productId, Count:item.count+1})
 
       }else{
-        updateItem({productId, Count:item.count-1})
+        if (item.count === 1){
+          removeItem(productId);
+        } else {
+          updateItem({productId, Count:item.count-1});
+        }
+
       }
     }
   return (
