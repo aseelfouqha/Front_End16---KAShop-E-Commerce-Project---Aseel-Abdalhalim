@@ -73,7 +73,11 @@ export default function Login() {
           error={errors.password}
           helperText={errors.password?.message}
         />
-        <Typography component="p" variant="p">
+        <Typography component={Link} to="/forgot-password"
+        sx = {{
+          alignSelf: "flex-end",
+          textDecoration: "none",
+        }}>
           Forget Password?
         </Typography>
 

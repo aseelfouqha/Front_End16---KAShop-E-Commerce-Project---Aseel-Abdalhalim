@@ -4,10 +4,15 @@ import { useForm } from 'react-hook-form';
 import { resetPasswordEmailSchema } from '../../Validations/ResetPasswordEmailSchema';
 import { Box, Button, CircularProgress, TextField, Typography } from '@mui/material';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useResetPasswordStore } from '../../Store/useResetPasswordStore';
 
 export default function ForgotPassword() {
   
   const [serverErrors, setServerErrors] = useState([]);
+
+  const navigate = useNavigate();
+  const setEmail = useResetPasswordStore((state)=>state.setEmail);
 
   const{
     register,
@@ -27,6 +32,9 @@ export default function ForgotPassword() {
       console.log("Status:", response.status);
 
       console.log("The verification code was sent to your email.");
+      
+      setEmail(data.email);
+      navigate('/verify-code');
 
     } catch (err){
       console.log("full error:", err);

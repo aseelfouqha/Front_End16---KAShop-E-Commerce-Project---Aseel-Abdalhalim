@@ -8,6 +8,8 @@ import Register from "./Pages/Register/Register";
 import ProductDetail from "./Pages/Products/ProductDetail";
 import ProudectedRouter from "./PoudectedRouter";
 import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
+import VerifyCode from "./Pages/ForgotPassword/VerifyCode";
+import ResetPassword from "./Pages/ForgotPassword/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -41,6 +43,14 @@ const router = createBrowserRouter([
       {
         path: "forgot-password",
         element: <ForgotPassword />,
+      },
+      {
+        path: "verify-code",
+        element: <VerifyCode />,
+      },
+      {
+        path: "reset-password",
+        element: <ResetPassword />,
       },
       {
         path: "register",
