@@ -1,68 +1,86 @@
-import React from 'react'
+import React from "react";
 import { useState } from "react";
 import { Box } from "@mui/material";
-import Typography from '@mui/material/Typography'
+import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import { useForm } from 'react-hook-form';
-import Button from '@mui/material/Button';
-import axios from 'axios'
-import { yupResolver } from '@hookform/resolvers/yup';
-import { loginSchema } from '../../Validations/LoginSchema';
-import { CircularProgress } from '@mui/material';
-import { useUserStore } from '../../Store/useUserStore';
-import { useAuthStore } from '../../Store/useAuthStore';
-
+import { useForm } from "react-hook-form";
+import Button from "@mui/material/Button";
+import axios from "axios";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginSchema } from "../../Validations/LoginSchema";
+import { CircularProgress } from "@mui/material";
+import { useUserStore } from "../../Store/useUserStore";
+import { useAuthStore } from "../../Store/useAuthStore";
+import { Link } from "react-router-dom";
 
 export default function Login() {
+  const setToken = useAuthStore((state) => state.setToken);
 
-  const setToken = useAuthStore( (state)=> state.setToken);
+  const name = useUserStore((state) => state.userName);
 
-  const name = useUserStore ( (state) => state.userName);
-  
   const [serverErrors, setServerErrors] = useState([]);
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: yupResolver(loginSchema),
+  });
 
-
-  const {register, handleSubmit, formState:{errors, isSubmitting}} = useForm(
-    {
-      resolver : yupResolver(loginSchema)
-    }
-  );
-
-  const LoginForm = async(data) => {
-    try{
-      const response = await axios.post(`${import.meta.env.VITE_BURL}/auth/Account/Login`,data);
+  const LoginForm = async (data) => {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BURL}/auth/Account/Login`,
+        data,
+      );
       setToken(response.data.accessToken);
       // console.log(response.data.accessToken);
-    }catch(err){
-      setServerErrors(err?.response?.data?.errors)
+    } catch (err) {
+      setServerErrors(err?.response?.data?.errors);
     }
-  }
+  };
   return (
-    <Box component="section" className="LoginPage"> 
-        <Typography component="h1" variant="h2">
-          Login {name}
-        </Typography>
-        {console.log(serverErrors)}
-        {serverErrors?.length > 0 ? serverErrors.map((error)=> 
-        <Typography color='error'>(error)</Typography>
-      ) :''}
-        <Box onSubmit={handleSubmit(LoginForm)} component="form" sx={{marginTop:2, display:'flex', flexDirection:'column', gap:2}}>
-            
-          <TextField fullWidth {...register("email")} label="email" variant="outlined"
-            error={errors.email}
-            helperText={errors.email?.message}
-          />
-        
-          <TextField fullWidth {...register("password")} label="password" variant="outlined"
-            error={errors.password}
-            helperText={errors.password?.message}
-          />
+    <Box component="section" className="LoginPage">
+      <Typography component="h1" variant="h2">
+        Login {name}
+      </Typography>
+      {console.log(serverErrors)}
+      {serverErrors?.length > 0
+        ? serverErrors.map((error) => (
+            <Typography color="error">(error)</Typography>
+          ))
+        : ""}
+      <Box
+        onSubmit={handleSubmit(LoginForm)}
+        component="form"
+        sx={{ marginTop: 2, display: "flex", flexDirection: "column", gap: 2 }}
+      >
+        <TextField
+          fullWidth
+          {...register("email")}
+          label="email"
+          variant="outlined"
+          error={errors.email}
+          helperText={errors.email?.message}
+        />
 
-          <Button variant="contained" type="sumbit" disabled={isSubmitting}>
-            {isSubmitting? <CircularProgress/> :'Login'}
-          </Button>
-        </Box>
+        <TextField
+          fullWidth
+          {...register("password")}
+          label="password"
+          variant="outlined"
+          error={errors.password}
+          helperText={errors.password?.message}
+        />
+        <Typography component="p" variant="p">
+          Forget Password?
+        </Typography>
+
+        <Button variant="contained" type="sumbit" disabled={isSubmitting}>
+          {isSubmitting ? <CircularProgress /> : "Login"}
+        </Button>
+      </Box>
     </Box>
-  )
+  );
 }

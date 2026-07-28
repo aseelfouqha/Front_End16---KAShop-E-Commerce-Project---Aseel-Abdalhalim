@@ -7,45 +7,46 @@ import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import ProductDetail from "./Pages/Products/ProductDetail";
 import ProudectedRouter from "./PoudectedRouter";
+import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayouts />,
-    children: 
-    [
+    children: [
       {
-        index : true,
-        element: <Home />
-        
+        index: true,
+        element: <Home />,
       },
       {
         path: "products",
-        element: <ProductGallery />
+        element: <ProductGallery />,
       },
       {
-        path: 'Products/:id',
-        element: <ProductDetail />
+        path: "Products/:id",
+        element: <ProductDetail />,
       },
       {
         path: "cart",
-        element:
+        element: (
           <ProudectedRouter>
             <Cart />
           </ProudectedRouter>
-    
-
+        ),
       },
       {
         path: "login",
-        element:<Login />
-
+        element: <Login />,
+      },
+      {
+        path: "forgot-password",
+        element: <ForgotPassword />,
       },
       {
         path: "register",
-        element: <Register />
-      }
-    ]
+        element: <Register />,
+      },
+    ],
   },
 ]);
 
