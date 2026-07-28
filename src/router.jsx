@@ -6,10 +6,11 @@ import Cart from "./Pages/CartAndCheckout/Cart";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
 import ProductDetail from "./Pages/Products/ProductDetail";
-import ProudectedRouter from "./PoudectedRouter";
+import ProudectedRouter from "./ProutectedRouter";
 import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 import VerifyCode from "./Pages/ForgotPassword/VerifyCode";
 import ResetPassword from "./Pages/ForgotPassword/ResetPassword";
+import Checkout from "./Pages/CartAndCheckout/Checkout";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,14 @@ const router = createBrowserRouter([
         element: (
           <ProudectedRouter>
             <Cart />
+          </ProudectedRouter>
+        ),
+      },
+      {
+        path: "checkout",
+        element: (
+          <ProudectedRouter>
+            <Checkout />
           </ProudectedRouter>
         ),
       },
