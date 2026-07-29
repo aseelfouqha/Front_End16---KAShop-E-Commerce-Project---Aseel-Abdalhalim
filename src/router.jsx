@@ -11,6 +11,9 @@ import ForgotPassword from "./Pages/ForgotPassword/ForgotPassword";
 import VerifyCode from "./Pages/ForgotPassword/VerifyCode";
 import ResetPassword from "./Pages/ForgotPassword/ResetPassword";
 import Checkout from "./Pages/CartAndCheckout/Checkout";
+import Profile from "./Pages/Profile/Profile";
+import ProfileInfo from "./Pages/Profile/ProfileInfo";
+import ProfileOrders from "./Pages/Profile/ProfileOrders";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +47,23 @@ const router = createBrowserRouter([
             <Checkout />
           </ProudectedRouter>
         ),
+      },
+      {
+        path: "profile",
+        element: 
+          <ProudectedRouter>
+            <Profile />
+          </ProudectedRouter>,
+          children:[
+            {
+              index:true,
+              element: <ProfileInfo/>
+            },
+            {
+              path:'orders',
+              element: <ProfileOrders/>
+            }
+          ]
       },
       {
         path: "login",

@@ -5,6 +5,7 @@ import useCart from '../../hooks/useCart';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import { Button } from '@mui/material';
+import { useThemeStore } from '../../Store/useThemeStore';
 
 
 export default function Navbar({userName}) {
@@ -19,8 +20,8 @@ export default function Navbar({userName}) {
     i18next.changeLanguage(newLang);
   }
 
-  const {data} = useCart();
-  const cartCount = data?.items.length || 0;
+  // const {data} = useCart();
+  // const cartCount = data?.items.length || 0;
 
   const handleLogout = ()=>{
     logout();
@@ -28,7 +29,7 @@ export default function Navbar({userName}) {
 
   }
 
-
+  const {mode, toggleMode} = useThemeStore();
   
   return (
     
@@ -37,12 +38,23 @@ export default function Navbar({userName}) {
             
             {i18next.language === "ar"?"EN":"AR"}
           </Button>
+          <Button onClick={toggleMode}>
+            
+            {mode === "light"? "Dark" : "Light"}
+          </Button>
           
 
           <Link to="/">{t('Home')}</Link>
           <Link to="/products">{t('Products')}</Link>
         
-          {token? <><Link to="/cart">{t('Cart')} - {cartCount} </Link> <Link to="/login" component ="button" onClick={logout}>{t('Logout')}</Link></> : <> <Link to="/login">{t('Login')}</Link> <Link to="/register">{t('Register')}</Link></>
+          {token? <>
+              <Link to="/cart">{t('Cart')} </Link>
+              <Link to="/Profile">{t('Profile')} </Link>
+              <Link to="/login" component ="button" onClick={logout}>{t('Logout')}</Link>
+          </> : 
+              <> <Link to="/login">{t('Login')}</Link>
+                 <Link to="/register">{t('Register')}</Link>
+              </>
           }
 
         </nav>

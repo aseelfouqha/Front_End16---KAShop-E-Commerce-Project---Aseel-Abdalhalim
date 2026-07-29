@@ -11,12 +11,13 @@ import { loginSchema } from "../../Validations/LoginSchema";
 import { CircularProgress } from "@mui/material";
 import { useUserStore } from "../../Store/useUserStore";
 import { useAuthStore } from "../../Store/useAuthStore";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
   const setToken = useAuthStore((state) => state.setToken);
 
   const name = useUserStore((state) => state.userName);
+  const navigate = useNavigate();
 
   const [serverErrors, setServerErrors] = useState([]);
 
@@ -36,6 +37,7 @@ export default function Login() {
       );
       setToken(response.data.accessToken);
       // console.log(response.data.accessToken);
+      navigate('/');
     } catch (err) {
       setServerErrors(err?.response?.data?.errors);
     }

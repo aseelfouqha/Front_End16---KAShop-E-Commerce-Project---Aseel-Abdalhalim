@@ -16,7 +16,7 @@ const Products = ()=>{
         <Typography component="h2" variant="h2">Products </Typography>
         <Grid container spacing={{xs:2, md:3}} sx={{textAlign:'center'}}>
           {data?.response?.data?.map((product)=>{
-            return <Grid item size={{xs:12, sm:6, md:4}}>
+            return <Grid item="true" size={{xs:12, sm:6, md:4}}>
               <Link to={`/Products/${product.id}`} style={{textDecoration:'none', color:'inherit'}}>
                   <Card>
                     <CardMedia 

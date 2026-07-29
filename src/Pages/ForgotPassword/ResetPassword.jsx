@@ -37,9 +37,10 @@ export default function ResetPassword() {
     };
 
     try {
-      const response = await axios.patch(`${import.meta.env.VITE_BURL}//auth/Account/ResetPassword`, requestData);
+      const response = await axios.patch(`${import.meta.env.VITE_BURL}/auth/Account/ResetPassword`, requestData);
 
       console.log("Satuts:", response.statues);
+      console.log("Password is reseted!!!!")
 
       clearResetPasswordData();
       navigate("/login");

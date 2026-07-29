@@ -20,7 +20,8 @@ i18n
           "Cart": "Cart",
           "Categories": "Categories",
           "Products": "Products",
-          "Add to Cart":"Add to Cart"
+          "Add to Cart":"Add to Cart",
+          "Profile": "Profile"
 
         }
       },
@@ -32,7 +33,8 @@ i18n
           "Cart": "سلة التسوق",
           "Categories": "التصنيفات",
           "Products": "المنتجات",
-          "Add to Cart":"أضف إلى السلة"
+          "Add to Cart":"أضف إلى السلة",
+          "Profile":"الصفحة الشخصية"
 
         }
     },
