@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
+import './App.css';
+
 import router from './router'
 import { RouterProvider } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -21,12 +23,13 @@ export default function App(){
   const queryClient = new QueryClient()
 
   const mode = useThemeStore((state)=> state.mode)
+  const theme = useMemo(()=>getTheme(mode),[mode]);
 
   return(
     <>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
-        <ThemeProvider theme={getTheme(mode)}>
+        <ThemeProvider theme={theme}>
           <CssBaseline/>
           <RouterProvider router={router} />
         </ThemeProvider>

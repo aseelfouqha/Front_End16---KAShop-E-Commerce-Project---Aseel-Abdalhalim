@@ -4,8 +4,11 @@ import { useAuthStore } from '../../Store/useAuthStore';
 import useCart from '../../hooks/useCart';
 import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
-import { Button } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
 import { useThemeStore } from '../../Store/useThemeStore';
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+
 
 
 export default function Navbar({userName}) {
@@ -38,10 +41,9 @@ export default function Navbar({userName}) {
             
             {i18next.language === "ar"?"EN":"AR"}
           </Button>
-          <Button onClick={toggleMode}>
-            
-            {mode === "light"? "Dark" : "Light"}
-          </Button>
+          <IconButton onClick={toggleMode} color='inherit'>
+            {mode === "light"? (<DarkModeOutlinedIcon />) : (<LightModeOutlinedIcon />)}
+          </IconButton>
           
 
           <Link to="/">{t('Home')}</Link>

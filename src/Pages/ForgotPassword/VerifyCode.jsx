@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useResetPasswordStore } from "../../Store/useResetPasswordStore";
 import { useForm } from "react-hook-form";
@@ -9,6 +9,10 @@ import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 export default function VerifyCode() {
   const navigate = useNavigate();
 
+   // state Variable to store the 4 digit pin in an array and setter function to initailize with empty string
+  const [otp, setOtp] = useState(["", "", "", ""]);
+
+  const inputsRef =useRef([])
   const setCode = useResetPasswordStore((state) => state.setCode);
 
   const {
@@ -22,31 +26,58 @@ export default function VerifyCode() {
     },
   });
 
-  const submitCode = (data) => {
-    setCode(data.code);
-    navigate("/reset-password");
-  };
-
-  // state Variable to store the 4 digit pin in an array and setter function to initailize with empty string
-  const [otp, setOtp] = useState(["", "", "", ""]);
-
+  // ==============================================
   // created a function to handle each input change
-  const handleChange = (value, index) => {
-    // allow only one digit for each (0-9)
-    if (/^\d?$/.test(value)) {
-      const newOtp = [...otp];
-      // update specific otp box
-      newOtp[index] = value;
-      setOtp(newOtp);
-
-      setValue("code", newOtp.join(""),{shouldValidate: true,});
-
-      // move to the next input if not empty automatically
-      if (value && index < 3) {
-        document.getElementById(`otp-${index + 1}`).focus();
+  //Functions 
+  // ==============================================
+  // Function HandelChange
+  // ==============================================
+  const handelChange = (value , index )=> { 
+    if (!/^\d?$/.test(value)) return ; 
+      const newOtp =[...otp]
+      newOtp[index] = value
+      setOtp(newOtp)
+      if(value && index < otp.length - 1){
+        inputsRef.current[index + 1]?.focus()
       }
     }
-  };
+  // ==============================================
+  //  End Function Handel Change 
+  // ==============================================
+
+  // ==============================================
+  //  Start  Function Handel Key Down 
+  // ==============================================
+    const handleKeyDown = (e , index) => {
+      if(e.key === "Backspace" && !otp[index] && index > 0 ){
+        inputsRef.current[index - 1]?.focus()
+      }
+    }
+  // ==============================================
+  //  End Function Handel Key Down
+  // ==============================================
+    
+  // ==============================================
+  //  Start  Function Handel Submit 
+  // ==============================================
+    const handelSubmit =(e)=> {
+      e.preventDefault()
+      const code = otp.join("")
+      if(code.length !== 4 ){
+        alert("Please Enter the 4 digit code ")
+        return ;
+      }
+      navigate("/reset-password")
+      console.log(code);
+      setCode(code)
+
+    }
+  // ==============================================
+  //  End Function Handel Submit
+  // ==============================================
+    
+  // ==============================================
+  
 
   return (
     <Box
@@ -80,7 +111,7 @@ export default function VerifyCode() {
 
         <Box
           component="form"
-          onSubmit={handleSubmit(submitCode)}
+        
           sx={{
             m: 3,
             display: "flex",
@@ -105,10 +136,14 @@ export default function VerifyCode() {
                 key={index}
                 id={`otp-${index}`}
                 type="text"
+                inputRef={(el) => (inputsRef.current[index] = el)}
+                                onKeyDown={(e)=>{
+                  handleKeyDown(e ,index)
+                }}
+                                inputProps={{ maxLength: 1, style: { textAlign: "center" } }}
                 maxLength="1"
                 value={digit}
-                onChange={(e) => handleChange(e.target.value, index)}
-                sx={{
+                onChange={(e) => handelChange(e.target.value, index)}                sx={{
                   width: "50px",
                   height: "100px",
                 }}
@@ -124,7 +159,7 @@ export default function VerifyCode() {
               alignItems: "center",
             }}
           >
-            <Button variant="contained" type="submit" disabled={isSubmitting}>
+            <Button variant="contained" onClick={handelSubmit} type="submit" disabled={isSubmitting}>
               Verify Code
             </Button>
             <Typography>Didn't recieve the code?</Typography>
