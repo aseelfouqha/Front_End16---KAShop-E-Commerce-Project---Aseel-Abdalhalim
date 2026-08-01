@@ -13,7 +13,11 @@ const getTheme = (mode) => {
       },
       primary: {
         main: isDark? "#ecbaba" : "#6f5955",
-        contrastText: "#ffffff",
+        contrastText: isDark ? "#472828" : "#ffffff",
+      },
+      secondary:{
+        main: isDark? "#ecbaba" : "#6f5955",
+        contrastText: isDark? "#472828" : "#ffffff",
       },
 
       text: {
@@ -63,11 +67,11 @@ const getTheme = (mode) => {
       MuiCssBaseline: {
         styleOverrides:{
           html: {
-            minheight: "100%",
+            minHeight: "100%",
           },
 
           body:{
-            minheight: "100%",
+            minHeight: "100%",
             margin: 0,
             backgroundColor: isDark? "#151312" : "#fcf9f8",
             color: isDark? "#e7e1df" : "#1b1c1c",
@@ -75,7 +79,18 @@ const getTheme = (mode) => {
           },
 
           "#root":{
-            minheight:"100vh",
+            minHeight:"100vh",
+          },
+        },
+      },
+
+      MuiContainer:{
+        defaultProps: {
+          maxWidth: false,
+        },
+        styleOverrides:{
+          root:{
+            maxWidth: "1280px",
           },
         },
       },
@@ -105,6 +120,16 @@ const getTheme = (mode) => {
             "& .MuiOutlinedInput-root": {
               borderRadius: isDark ? "4px" : "8px",
             },
+          },
+        },
+      },
+
+      MuiAppBar:{
+        styleOverrides: {
+          root: {
+            backgroundImage: "none",
+            boxShadow: "none",
+            borderBottom: `1px solid ${isDark? "#4d4540" : "#d5c3bf"}`
           },
         },
       },

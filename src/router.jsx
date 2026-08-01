@@ -14,6 +14,7 @@ import Checkout from "./Pages/CartAndCheckout/Checkout";
 import Profile from "./Pages/Profile/Profile";
 import ProfileInfo from "./Pages/Profile/ProfileInfo";
 import ProfileOrders from "./Pages/Profile/ProfileOrders";
+import Shop from "./Pages/Shop/Shop";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: "products",
         element: <ProductGallery />,
+      },
+      {
+        path: "shop",
+        element: <Shop />,
       },
       {
         path: "Products/:id",
