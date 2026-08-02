@@ -20,6 +20,10 @@ export default function useAddToCart() {
         queryClient.invalidateQueries({
           queryKey: ['cart']
         });
+      },
+
+      onError: (error)=>{
+        console.log("Add to cart failed: ", error?.repsonse?.data || error.message);
       }
     });
   

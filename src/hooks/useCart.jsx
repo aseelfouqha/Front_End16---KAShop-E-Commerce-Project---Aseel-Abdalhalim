@@ -7,10 +7,10 @@ export default function useCart() {
   const getItem = async()=>{
     const response = await axiosAuthInstance.get('/Carts');
     return response.data;
-  }
+  };
 
   return useQuery({
-    queryKey:['cart','en'],
+    queryKey:['cart'],
     queryFn: getItem,
     staleTime: 1000*60*5
 
