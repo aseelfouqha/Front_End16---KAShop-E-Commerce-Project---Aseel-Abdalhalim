@@ -22,7 +22,7 @@ const Products = () => {
   if (isLoading) return <CircularProgress />;
   console.log(data.response.data);
   const handleAddToCart = (productId) => {
-  console.log("Product ID:", productId);
+  // console.log("Product ID:", productId);
 
   addToCart(
     {
@@ -86,7 +86,7 @@ const Products = () => {
                         color: "text.primary",
                         border: "1px solid",
                         borderColor: "divider",
-                        borderRadius: 4,
+                        // borderRadius: 4,
                         boxShadow: "none",
                         overflow: "hidden",
                         transition: "all 0.3s ease",
@@ -165,9 +165,9 @@ const Products = () => {
                           variant="contained"
                           startIcon={<AddShoppingCartIcon />}
                           disabled={isPending}
-                          onClick={() => handleAddToCart(product.productId)}
+                          onClick={() => handleAddToCart(product.id)}
                           sx={{
-                            borderRadius: 3,
+                            // borderRadius: 2,
                             textTransform: "none",
                             py: 1.2,
                           }}

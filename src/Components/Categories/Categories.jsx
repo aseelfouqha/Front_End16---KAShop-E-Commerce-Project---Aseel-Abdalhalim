@@ -63,7 +63,7 @@ export default function Categories() {
               p: 3,
               border: "1px solid",
               borderColor: "divider",
-              borderRadius: 4,
+              borderRadius: 0.5,
               bgcolor: "background.paper",
               display: "flex",
               flexDirection: "column",
