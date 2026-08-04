@@ -18,6 +18,7 @@ import {
 import { Link } from "react-router-dom";
 
 import useShopProducts from "../../hooks/useShopProducts";
+import useCategories from "../../hooks/useCategories";
 
 export default function Shop() {
   // to tell the shop that is start from page=1
@@ -30,20 +31,22 @@ export default function Shop() {
     sort: "asc",
   });
 
-  const { data, isLoading, isFetching, isError, error } =
-    useShopProducts({
-      page,
-      limit: 6,
-      sortBy: "price",
-      ascending: filters.sort === "asc",
-    });
+  const { data, isLoading, isFetching, isError, error } = useShopProducts({
+    page,
+    limit: 6,
+    sortBy: "price",
+    ascending: filters.sort === "asc",
+  });
 
   const products = data?.response?.data || [];
 
   const totalPages =
-    data?.response?.totalPages ||
-    data?.response?.pageCount ||
-    1;
+    data?.response?.totalPages || data?.response?.pageCount || 1;
+
+  const { data: categoriesData, isLoading: categoriesLoading } =
+    useCategories();
+
+  const categories = categoriesData?.response?.data || [];
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -76,29 +79,19 @@ export default function Shop() {
     const productPrice = Number(product.price);
 
     const matchesMinPrice =
-      filters.minPrice === "" ||
-      productPrice >= Number(filters.minPrice);
+      filters.minPrice === "" || productPrice >= Number(filters.minPrice);
 
     const matchesMaxPrice =
-      filters.maxPrice === "" ||
-      productPrice <= Number(filters.maxPrice);
+      filters.maxPrice === "" || productPrice <= Number(filters.maxPrice);
 
     const productCategory =
-      product.category?.name ||
-      product.categoryName ||
-      product.category ||
-      "";
+      product.category?.name || product.categoryName || product.category || "";
 
     const matchesCategory =
       filters.category === "" ||
-      productCategory.toLowerCase() ===
-        filters.category.toLowerCase();
+      productCategory.toLowerCase() === filters.category.toLowerCase();
 
-    return (
-      matchesMinPrice &&
-      matchesMaxPrice &&
-      matchesCategory
-    );
+    return matchesMinPrice && matchesMaxPrice && matchesCategory;
   });
 
   if (isLoading) {
@@ -118,11 +111,7 @@ export default function Shop() {
 
   if (isError) {
     return (
-      <Typography
-        color="error"
-        textAlign="center"
-        sx={{ py: 10 }}
-      >
+      <Typography color="error" textAlign="center" sx={{ py: 10 }}>
         {error?.response?.data?.message ||
           error?.message ||
           "Failed to load products"}
@@ -166,7 +155,6 @@ export default function Shop() {
         >
           Shop All Products
         </Typography>
-
       </Box>
 
       <Box
@@ -211,11 +199,7 @@ export default function Shop() {
               Filters
             </Typography>
 
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{ mt: 0.5 }}
-            >
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
               Refine your product results
             </Typography>
           </Box>
@@ -251,9 +235,7 @@ export default function Shop() {
           {/* https://mui.com/material-ui/api/form-control/ */}
 
           <FormControl fullWidth>
-            <InputLabel id="category-label">
-              Category
-            </InputLabel>
+            <InputLabel id="category-label">Category</InputLabel>
 
             {/* https://mui.com/material-ui/react-select/ */}
 
@@ -263,33 +245,19 @@ export default function Shop() {
               name="category"
               value={filters.category}
               onChange={handleChange}
+              disabled={categoriesLoading}
+
             >
-              <MenuItem value="">
-                All Categories
-              </MenuItem>
-
-              <MenuItem value="mobile">
-                Mobile
-              </MenuItem>
-
-              <MenuItem value="clothes">
-                Clothes
-              </MenuItem>
-
-              <MenuItem value="electronics">
-                Electronics
-              </MenuItem>
-
-              <MenuItem value="cat 9">
-                Cat 9
-              </MenuItem>
+              {categories.map((category) => (
+                <MenuItem key={category.id} value={category.name.toLowerCase()}>
+                  {category.name}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
 
           <FormControl fullWidth>
-            <InputLabel id="sort-label">
-              Sort by
-            </InputLabel>
+            <InputLabel id="sort-label">Sort by</InputLabel>
 
             <Select
               labelId="sort-label"
@@ -298,13 +266,9 @@ export default function Shop() {
               value={filters.sort}
               onChange={handleChange}
             >
-              <MenuItem value="asc">
-                Price: Low to High
-              </MenuItem>
+              <MenuItem value="asc">Price: Low to High</MenuItem>
 
-              <MenuItem value="desc">
-                Price: High to Low
-              </MenuItem>
+              <MenuItem value="desc">Price: High to Low</MenuItem>
             </Select>
           </FormControl>
 
@@ -352,9 +316,7 @@ export default function Shop() {
               </Typography>
             </Box>
 
-            {isFetching && (
-              <CircularProgress size={24} />
-            )}
+            {isFetching && <CircularProgress size={24} />}
           </Box>
 
           {filteredProducts.length === 0 ? (
@@ -377,10 +339,7 @@ export default function Shop() {
                 No products found
               </Typography>
 
-              <Typography
-                color="text.secondary"
-                sx={{ mt: 1 }}
-              >
+              <Typography color="text.secondary" sx={{ mt: 1 }}>
                 Try changing or resetting your filters.
               </Typography>
 
@@ -452,8 +411,7 @@ export default function Shop() {
                           width: "100%",
                           height: "100%",
                           objectFit: "contain",
-                          transition:
-                            "transform 0.3s ease",
+                          transition: "transform 0.3s ease",
                         }}
                       />
                     </Box>
@@ -509,7 +467,6 @@ export default function Shop() {
                 mt: 6,
               }}
             >
-
               {/* https://mui.com/material-ui/react-pagination/ */}
               <Pagination
                 page={page}
