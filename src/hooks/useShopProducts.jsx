@@ -6,7 +6,7 @@ import i18n from "i18next";
 export default function useShopProducts({
   page = 1,
   limit = 6,
-  sortVy = "price",
+  sortBy = "price",
   ascending = true,
 }) {
   const getShopProducts = async () => {
