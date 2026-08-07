@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayouts from "./Layouts/MainLayouts";
 import Home from "./Pages/Home/Home";
-import ProductGallery from "./Pages/Products/ProductGallery";
+// import ProductGallery from "./Pages/Products/ProductGallery";
 import Cart from "./Pages/CartAndCheckout/Cart";
 import Login from "./Pages/Login/Login";
 import Register from "./Pages/Register/Register";
@@ -15,6 +15,7 @@ import Profile from "./Pages/Profile/Profile";
 import ProfileInfo from "./Pages/Profile/ProfileInfo";
 import ProfileOrders from "./Pages/Profile/ProfileOrders";
 import Shop from "./Pages/Shop/Shop";
+import Products from "./Components/Products/Products";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
       },
       {
         path: "products",
-        element: <ProductGallery />,
+        element: <Products />,
       },
       {
         path: "shop",
